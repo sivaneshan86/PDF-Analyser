@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 2.0 Content Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-robot"></i>
+                <span>Gemini Analyze</span>
+            </div>
+
+            <div class="input-section">
+                <h3>Source Material</h3>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('pdf')">PDF Docs</button>
+                    <button class="tab-btn" onclick="switchTab('youtube')">YouTube</button>
+                </div>
+
+                <!-- PDF Input -->
+                <div id="pdf-panel" class="panel active">
+                    <div class="drop-zone" id="drop-zone">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Drag & Drop or Click to Upload</p>
+                        <input type="file" id="pdf-upload" accept=".pdf" hidden>
+                    </div>
+                </div>
+
+                <!-- YouTube Input -->
+                <div id="youtube-panel" class="panel">
+                    <div class="input-group">
+                        <input type="text" id="youtube-url" placeholder="Paste YouTube URL...">
+                        <button id="fetch-yt-btn" onclick="processYouTube()">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="status-area" class="status-box hidden">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="status-text">Ready</span>
+                </div>
+
+                <!-- Content Preview (Mini) -->
+                <div id="content-preview" class="preview-box hidden">
+                    <h4>Context Preview</h4>
+                    <p id="preview-text"></p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="clear-btn" onclick="clearChat()">
+                    <i class="fa-solid fa-trash"></i> Clear History
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <div class="chat-header">
+                <h2>Assistant</h2>
+                <div class="model-badge">Gemini 2.0 Flash Exp</div>
+            </div>
+
+            <div id="chat-container" class="messages-container">
+                <div class="message ai-welcome">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="bubble">
+                        <p>Hello! Upload a PDF or paste a YouTube link to get started. I'm ready to analyze your
+                            content.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea id="user-input" placeholder="Ask a question about the content..." rows="1"
+                        onkeydown="handleEnter(event)"></textarea>
+                    <button onclick="sendMessage()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>
